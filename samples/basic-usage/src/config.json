@@ -1,6 +1,7 @@
 {
-    "clientID": "<<CLIENT_ID>>",
-    "serverOrigin": "<<SERVER_ORIGIN>>",
+    "clientID": "sjLkiX3wBScX8PwAhilrmCvt5Foa",
     "signInRedirectURL": "https://localhost:5000/signin/redirect",
-    "signOutRedirectURL": "https://localhost:5000"
+    "signOutRedirectURL": "https://localhost:5000",
+    "serverOrigin": "https://dev.portal.asgardio.io/t/angular.test",
+    "enablePKCE": true
 }
