@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.auth.isAuthenticated().then((status) => {
+        this.auth.isAuthenticated().subscribe((status) => {
             this.isAuthenticated = status;
         });
     }

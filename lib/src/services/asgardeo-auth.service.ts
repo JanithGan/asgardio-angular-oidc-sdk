@@ -19,6 +19,7 @@
 
 import { Inject, Injectable } from "@angular/core";
 import { AsgardeoSPAClient } from "@asgardeo/auth-spa";
+import { from, Observable } from "rxjs";
 import { ASGARDEO_CONFIG } from "../configs/asgardeo-config";
 import { AsgardeoConfigInterface } from "../models/asgardeo-config.interface";
 import {
@@ -62,28 +63,28 @@ export class AsgardeoAuthService {
         return this.auth.signOut();
     }
 
-    isAuthenticated(): Promise<boolean> {
-        return this.auth.isAuthenticated();
+    isAuthenticated(): Observable<boolean> {
+        return from(this.auth.isAuthenticated());
     }
 
-    getBasicUserInfo(): Promise<BasicUserInfo> {
-        return this.auth.getBasicUserInfo();
+    getBasicUserInfo(): Observable<BasicUserInfo> {
+        return from(this.auth.getBasicUserInfo());
     }
 
-    getAccessToken(): Promise<string> {
-        return this.auth.getAccessToken();
+    getAccessToken(): Observable<string> {
+        return from(this.auth.getAccessToken());
     }
 
-    getIDToken(): Promise<string> {
-        return this.auth.getIDToken();
+    getIDToken(): Observable<string> {
+        return from(this.auth.getIDToken());
     }
 
-    getDecodedIDToken(): Promise<DecodedIDTokenPayload> {
-        return this.auth.getDecodedIDToken();
+    getDecodedIDToken(): Observable<DecodedIDTokenPayload> {
+        return from(this.auth.getDecodedIDToken());
     }
 
-    getOIDCServiceEndpoints(): Promise<OIDCEndpoints> {
-        return this.auth.getOIDCServiceEndpoints();
+    getOIDCServiceEndpoints(): Observable<OIDCEndpoints> {
+        return from(this.auth.getOIDCServiceEndpoints());
     }
 
     refreshAccessToken(): Promise<BasicUserInfo> {
