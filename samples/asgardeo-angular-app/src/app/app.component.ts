@@ -40,8 +40,8 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         if (this.isInitLogin) {
             this.auth.signIn().then(() => {
-                this.auth.getBasicUserInfo().then((payload) => this.userInfo = payload);
-                this.auth.getIDToken().then((payload) => this.idToken = this.parseIdToken(payload));
+                this.auth.getBasicUserInfo().subscribe((payload) => this.userInfo = payload);
+                this.auth.getIDToken().subscribe((payload) => this.idToken = this.parseIdToken(payload));
             });
         }
     }

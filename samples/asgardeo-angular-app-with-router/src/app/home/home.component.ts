@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     constructor(private auth: AsgardeoAuthService) { }
 
     ngOnInit() {
-        this.auth.isAuthenticated().then((payload) => this.isAuthenticated = payload);
+        this.auth.isAuthenticated().subscribe((payload) => this.isAuthenticated = payload);
     }
 
     handleLogin(): void {
