@@ -38,12 +38,26 @@ import { AsgardeoNavigatorService } from "./asgardeo-navigator.service";
     providedIn: "root"
 })
 export class AsgardeoAuthService {
+    isAuthenticated$: Observable<boolean>;
+    basicUserInfo$: Observable<BasicUserInfo>;
+    accessToken$: Observable<string>;
+    idToken$: Observable<string>;
+    decodedIdToken$: Observable<DecodedIDTokenPayload>;
+    oidcServiceEndpoints$: Observable<OIDCEndpoints>;
     private auth: AsgardeoSPAClient;
 
     constructor(
         @Inject(ASGARDEO_CONFIG) private authConfig: AsgardeoConfigInterface,
         private navigator: AsgardeoNavigatorService) {
         this.intializeSPAClient();
+        if (this.auth) {
+            this.isAuthenticated$ = from(this.auth.isAuthenticated());
+            this.basicUserInfo$ = from(this.auth.getBasicUserInfo());
+            this.accessToken$ = from(this.auth.getAccessToken());
+            this.idToken$ = from(this.auth.getIDToken());
+            this.decodedIdToken$ = from(this.auth.getDecodedIDToken());
+            this.oidcServiceEndpoints$ = from(this.auth.getOIDCServiceEndpoints());
+        }
     }
 
     signIn(
@@ -61,30 +75,6 @@ export class AsgardeoAuthService {
 
     signOut(): Promise<boolean> {
         return this.auth.signOut();
-    }
-
-    isAuthenticated(): Observable<boolean> {
-        return from(this.auth.isAuthenticated());
-    }
-
-    getBasicUserInfo(): Observable<BasicUserInfo> {
-        return from(this.auth.getBasicUserInfo());
-    }
-
-    getAccessToken(): Observable<string> {
-        return from(this.auth.getAccessToken());
-    }
-
-    getIDToken(): Observable<string> {
-        return from(this.auth.getIDToken());
-    }
-
-    getDecodedIDToken(): Observable<DecodedIDTokenPayload> {
-        return from(this.auth.getDecodedIDToken());
-    }
-
-    getOIDCServiceEndpoints(): Observable<OIDCEndpoints> {
-        return from(this.auth.getOIDCServiceEndpoints());
     }
 
     refreshAccessToken(): Promise<BasicUserInfo> {

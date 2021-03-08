@@ -39,7 +39,7 @@ import { ProfileComponent } from "./profile/profile.component";
         AsgardeoAuthModule.forRoot({
             signInRedirectURL: "https://localhost:4200/signin/redirect",
             signOutRedirectURL: "https://localhost:4200",
-            clientID: "",
+            clientID: "hbbgcB7M6LL1mnrcznDWEMdC084a",
             serverOrigin: "https://localhost:9443",
             scope: ["internal_login"],
             resourceServerURLs: ["https://localhost:9443/scim2"]

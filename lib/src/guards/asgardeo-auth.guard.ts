@@ -19,6 +19,8 @@
 
 import { Injectable } from "@angular/core";
 import { CanActivate, CanActivateChild } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { tap } from "rxjs/operators";
 import { AsgardeoAuthService } from "../services/asgardeo-auth.service";
 
 @Injectable({
@@ -27,15 +29,20 @@ import { AsgardeoAuthService } from "../services/asgardeo-auth.service";
 export class AsgardeoAuthGuard implements CanActivate, CanActivateChild {
     constructor(private auth: AsgardeoAuthService) { }
 
-    async canActivate(): Promise<boolean> {
-        const isAuthenticated = await this.auth.isAuthenticated();
-        if (isAuthenticated) {
-            return true;
-        }
-        return false;
+    canActivate(): Observable<boolean> {
+        return this.auth.isAuthenticated$.pipe(
+            tap((isAuthenticated) => {
+                if (!isAuthenticated) {
+                    return of(false);
+                }
+                else {
+                    return of(true);
+                }
+            })
+        );
     }
 
-    async canActivateChild(): Promise<boolean> {
+    canActivateChild(): Observable<boolean> {
         return this.canActivate();
     }
 }

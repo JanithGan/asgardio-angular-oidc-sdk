@@ -33,11 +33,11 @@ export class ProfileComponent implements OnInit {
     constructor(private auth: AsgardeoAuthService) { }
 
     ngOnInit() {
-        this.auth.isAuthenticated().subscribe((status: boolean) => {
+        this.auth.isAuthenticated$.subscribe((status: boolean) => {
             this.isAuthenticated = status;
             if (this.isAuthenticated) {
-                this.auth.getAccessToken().subscribe((token: string) => this.accessToken = token);
-                this.auth.getBasicUserInfo().subscribe((useInfo: BasicUserInfo) => this.userInfo = useInfo);
+                this.auth.accessToken$.subscribe((token: string) => this.accessToken = token);
+                this.auth.basicUserInfo$.subscribe((useInfo: BasicUserInfo) => this.userInfo = useInfo);
             }
         });
     }
